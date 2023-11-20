@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "72564336-8d4f-405c-a01c-539311ff06b4"
+      }
+    },
+    "owner": "dimka_228"
   }
 }
