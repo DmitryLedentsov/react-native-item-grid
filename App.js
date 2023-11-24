@@ -1,73 +1,42 @@
-import React, {useState} from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import {View, ScrollView, StatusBar} from 'react-native';
+import axios from "axios";
+import styled from 'styled-components/native';
+import Item from './components/Item.jsx';
+
+const MainBlock = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 10px 0;
+  justify-content: center;
+`
 
 export default function App() {
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
-    const [input, setInput] = useState('');
-    const clearInput = () => {
-        setLogin('');
-        setPassword('');
-    }
+  const [items, setItems] = useState([])
 
-    const updateInput = () => {
-      setInput(`login: ${login} password: ${password}`);
-    }
+  useEffect(() => {
+    axios
+      .get('https://655baee0ab37729791a97996.mockapi.io/api/posts')
+      .then((response) => {
+        let data = response.data;
+        setItems(data);
+      })
+      .catch((err) => {
+        alert(err);
+      })
+  }, [])
 
-    return (
-        <View style={styles.loginForm}>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={newText => setLogin(newText)}
-                    placeholder='Login'
-                    defaultValue={login}
-                    />
-                <TextInput
-                secureTextEntry={true}
-                    style={styles.input}
-                    onChangeText={newText => setPassword(newText)}
-                    placeholder='Password'
-                    defaultValue={password}
-                    />
-                
-            </View>
-            <View style={styles.buttonContainer}>
-                <Button 
-                    title='Clear'
-                    onPress={clearInput}
-                    />
-                <Button 
-                    title='Login'
-                    onPress={updateInput}
-                    />
-            </View>
-            <Text>{input}</Text>
-        </View>
-    );
+  return (
+    <View>
+      <ScrollView>
+        <StatusBar theme="auto"/>
+        <MainBlock>
+            {items.map((obj, index) => 
+              <Item key={index} title={obj.title} desc={obj.description} img={obj.avatar}/>
+            )}
+        </MainBlock>
+      </ScrollView>
+    </View>
+  );
 }
-
-const styles = StyleSheet.create({
-    loginForm: {
-        paddingTop: 50,
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-        rowGap: 5,
-    },
-    inputContainer: {
-        flexDirection: 'column',
-        width: '70%',
-        rowGap: 10,
-    },
-    input: {
-        borderWidth: 1,
-        borderRadius: 2,
-        padding: 5,
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        columnGap: 5,
-    },
-});
