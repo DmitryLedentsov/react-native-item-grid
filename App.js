@@ -4,7 +4,7 @@ import axios from "axios";
 import styled from 'styled-components/native';
 import Item from './components/Item.jsx';
 
-const MainBlock = styled.View`
+const Container = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 20px;
@@ -22,20 +22,16 @@ export default function App() {
         let data = response.data;
         setItems(data);
       })
-      .catch((err) => {
-        alert(err);
-      })
   }, [])
 
   return (
     <View>
       <ScrollView>
-        <StatusBar theme="auto"/>
-        <MainBlock>
+        <Container>
             {items.map((obj, index) => 
               <Item key={index} title={obj.title} desc={obj.description} img={obj.avatar}/>
             )}
-        </MainBlock>
+        </Container>
       </ScrollView>
     </View>
   );

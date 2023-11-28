@@ -1,15 +1,17 @@
 import {TouchableOpacity, Alert} from 'react-native';
 import styled from 'styled-components/native';
 
-const Image = styled.ImageBackground`
-    flex: 1;
-    text-align: center;
-    padding: 10px;
+const Image = styled.Image`
+    width: 100%;
+    height: 100px;
+    resizeMode: cover;
+    margin-bottom: 20px;
 `
-const MainBlock = styled.View`
+const Container = styled.View`
     width: 45%;
     border: 2px solid #000;
-    border-radius: 10px;
+    border-radius: 4px;
+    backgroundColor: #c0c0c0;
 `
 
 const Title = styled.Text`
@@ -19,24 +21,25 @@ const Title = styled.Text`
     margin-bottom: 20px;
 `
     
-const Desc = styled.Text`
+const Description = styled.Text`
     text-align: center;
     font-size: 12px;
 `
 
-export default Item = (props) => {
+export default Item = ({title,img,desc}) => {
     const handlePress = () => {
-        Alert.alert("Пост", props.title);
+        Alert.alert("Item", title);
     };
 
     return (
-        <MainBlock>
-            <Image src={props.img} imageStyle={{opacity: 0.5}}>
-            <TouchableOpacity onPress={handlePress}>
-                <Title>{props.title}</Title>
-                <Desc>{props.desc}</Desc>
-            </TouchableOpacity>
-            </Image>
-        </MainBlock>
+        <Container>
+        <TouchableOpacity onPress={handlePress}>
+            
+            <Title>{title}</Title>
+            <Image src={img}></Image>
+            <Description>{desc}</Description>
+        
+        </TouchableOpacity>
+        </Container>
     )
 };
