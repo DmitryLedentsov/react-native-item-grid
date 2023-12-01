@@ -23,11 +23,14 @@ export default function ItemList({navigation}) {
   const [items, setItems] = useState([])
   const [refreshing, setRefreshing] = useState(false)
   const getData = ()=>{
+    setRefreshing(true);
     axios
     .get('https://655baee0ab37729791a97996.mockapi.io/api/posts')
     .then((response) => {
       let data = response.data;
       setItems(data);
+    }).finally(()=>{
+        setRefreshing(false);
     })
   };
   useEffect(() => {
