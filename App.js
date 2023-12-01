@@ -1,38 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {View, ScrollView, StatusBar} from 'react-native';
-import axios from "axios";
-import styled from 'styled-components/native';
-import Item from './components/Item.jsx';
 
-const Container = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 10px 0;
-  justify-content: center;
-`
+import { Navigation } from "./components/Navigation.jsx";
+
 
 export default function App() {
-  const [items, setItems] = useState([])
-
-  useEffect(() => {
-    axios
-      .get('https://655baee0ab37729791a97996.mockapi.io/api/posts')
-      .then((response) => {
-        let data = response.data;
-        setItems(data);
-      })
-  }, [])
-
   return (
-    <View>
-      <ScrollView>
-        <Container>
-            {items.map((obj, index) => 
-              <Item key={index} title={obj.title} desc={obj.description} img={obj.avatar}/>
-            )}
-        </Container>
-      </ScrollView>
-    </View>
+    <Navigation/>
   );
 }

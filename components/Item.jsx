@@ -1,6 +1,6 @@
 import {TouchableOpacity, Alert} from 'react-native';
 import styled from 'styled-components/native';
-
+import { useNavigation } from '@react-navigation/native';
 const Image = styled.Image`
     width: 100%;
     height: 100px;
@@ -8,10 +8,7 @@ const Image = styled.Image`
     margin-bottom: 20px;
 `
 const Container = styled.View`
-    width: 45%;
-    border: 2px solid #000;
-    border-radius: 4px;
-    backgroundColor: #c0c0c0;
+
 `
 
 const Title = styled.Text`
@@ -26,11 +23,8 @@ const Description = styled.Text`
     font-size: 12px;
 `
 
-export default Item = ({title,img,desc}) => {
-    const handlePress = () => {
-        Alert.alert("Item", title);
-    };
-
+export default Item = ({title,img,desc, onPress}) => {
+    this.handlePress = onPress;
     return (
         <Container>
         <TouchableOpacity onPress={handlePress}>
